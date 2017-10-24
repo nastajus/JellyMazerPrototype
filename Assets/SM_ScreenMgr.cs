@@ -1,16 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
+
 
 public class SM_ScreenMgr : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    void OnEnable()
+    {
+        EM_EventMgr.StartListening("get players", ActivateScenesGettingPlayers);
+    }
+
+    void OnDisable()
+    {
+        EM_EventMgr.StopListening("get players", ActivateScenesGettingPlayers);
+    }
+
+    void ActivateScenesGettingPlayers()
+    {
+        //for now i'll just hard-code the sole scene here... and re-evaluate later if i want to refactor this elsewhere.
+        SceneManager.LoadScene("S1_UI_CANVASES", LoadSceneMode.Additive);
+        SceneManager.LoadScene("S1_GO_GET_PLAYERS", LoadSceneMode.Additive);
+    }
+
 }

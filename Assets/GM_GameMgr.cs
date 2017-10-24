@@ -8,8 +8,8 @@ using UnityEngine.Events;
 
 // pseudo message flow: 
 
-// 1. make itself a singleton
-// 2. initialize the event management system, all (?)  inter-class communication will (?) be via messaging.
+// 1. make itself a singleton -- DONE
+// 2. initialize the event management system, all (?)  inter-class communication will (?) be via messaging. -- DONE
 // 3. initialize SM_ScreenMgr, make it listen & wait.
 // 4. here use local enum to track various game states, set to "unitialized" state to begin.
 // 5. here fire off message to SM_ScreenMgr to enter state "get players"(), which in turn will cause loading both S1 scenes in tandem addititively. (also probably with EM)
@@ -81,7 +81,7 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
         GPM_GamepadMgr_ = gameObject.AddComponent<GPM_GamepadMgr>();
         MM_MazeMgr_ = gameObject.AddComponent<MM_MazeMgr>();
 
-
+        EM_EventMgr.TriggerEvent("get players");
     }
 
 
@@ -107,17 +107,4 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
     {
         Debug.Log("etc");
     }
-
-    /*
-    //wanted to force MonoBehavior's methods through the interface "IEL..." but decided against it, didn't want to expose publically OnWhatever... or risk unknown reactions 
-    public void OnEnable()
-    {
-        
-    }
-
-    public void OnDisable()
-    {
-        
-    }
-    */
 }
