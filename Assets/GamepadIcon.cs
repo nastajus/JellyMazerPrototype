@@ -5,13 +5,13 @@ using UnityEngine.UI;
 
 /*
  * Purpose: Class is attached to an image of a gamepad, and is used to represent the state of that gamepad's connectedness.
- *      Tracks instance is connected, and shows in gray or other color.
+ *      Tracks instance is connected via a listener, and shows in gray or other color.
  */
 
-public class Gamepad : MonoBehaviour
+public class GamepadIcon : MonoBehaviour
 {
-    readonly Color32 colorUnconnected = new Color32(10, 50, 80, 100);
-    readonly Color32 colorConnected = new Color32(0, 255, 0, 255);
+    readonly Color32 colorUnconnected_ = new Color32(10, 50, 80, 100);
+    readonly Color32 colorConnected_ = new Color32(0, 255, 0, 255);
     //private Color color;      //doesn't work
 
     private bool connected_ = false;
@@ -38,7 +38,7 @@ public class Gamepad : MonoBehaviour
 
     void UpdateColor(bool connected)
     {
-        //color = (connected ? colorConnected : colorUnconnected );         //doesn't work
-        gameObject.GetComponent<Image>().color = (connected ? colorConnected : colorUnconnected);
+        //color = (connected ? colorConnected_ : colorUnconnected_ );         //doesn't work
+        gameObject.GetComponent<Image>().color = (connected ? colorConnected_ : colorUnconnected_);
     }
 }
