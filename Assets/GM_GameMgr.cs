@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using UnityEditorInternal;
 using UnityEngine;
+using UnityEngine.Events;
 
 // Purpose : this class manages overall executive state of the game, and initiates other classes / components / scenes / events
 
@@ -26,22 +28,96 @@ using UnityEngine;
 // 10. GM_GameMgr will detect players have exited. Depending on game mode, it will have logic to handle accordingly. for now, let's just say any player that exits triggers "new map", and that this happens twice, and then credits roll.
 
 
-public class GM_GameMgr : MonoBehaviour
+public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
 {
     public static GM_GameMgr Instance = null;
-    private EM_EventMgr EventMgr_;
-    private GPM_GamepadMgr GamepadMgr_;
-    private MM_MazeMgr MazeMgr_;
-    private SM_ScreenMgr ScreenMgr_;
+
+    private EM_EventMgr EM_EventMgr_;
+    private SM_ScreenMgr SM_ScreenMgr_;
+    private GPM_GamepadMgr GPM_GamepadMgr_;
+    private MM_MazeMgr MM_MazeMgr_;
+
+    private UnityAction listenerPlayerConfirmed;
+    private UnityAction listenerEtc;
+
+    void Awake ()
+    {
+        InitSingleton();
+        InitListeners();
+        InitGame();
+    }
+
+    void InitSingleton()
+    {
+        //check if instance already exists
+        if (Instance == null)
+        {
+            Instance = this; //if not, set instance to "this".
+        }
+
+        //if instance already exists, and it's not "this":
+        else if (Instance != this)
+        {
+            //then destroy this, enforcing singleton pattern.
+            Destroy(gameObject);
+        }
+
+        //sets to not destroy when reloading scenes
+        DontDestroyOnLoad(gameObject);
+    }
+
+    void InitListeners()
+    {
+        EM_EventMgr_ = gameObject.AddComponent<EM_EventMgr>();
+        listenerPlayerConfirmed = new UnityAction(PlayerConfirmFunction);
+        listenerEtc = new UnityAction(EtcFunction);
+
+    }
+
+    void InitGame()
+    {
+        //add a bunch of startup logic (other classes, other components).
+        SM_ScreenMgr_ = gameObject.AddComponent<SM_ScreenMgr>();
+        GPM_GamepadMgr_ = gameObject.AddComponent<GPM_GamepadMgr>();
+        MM_MazeMgr_ = gameObject.AddComponent<MM_MazeMgr>();
 
 
-    // Use this for initialization
-    void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+    }
+
+
+    void OnEnable()
+    {
+        EM_EventMgr.StartListening("player confirm", PlayerConfirmFunction);
+        EM_EventMgr.StartListening("etc", EtcFunction);
+    }
+
+    //OnDisable is necessary to manage properly memory and thus avoid memory leaks
+    void OnDisable()
+    {
+        EM_EventMgr.StopListening("player confirm", PlayerConfirmFunction);
+        EM_EventMgr.StopListening("etc", EtcFunction);
+    }
+
+    void PlayerConfirmFunction()
+    {
+        Debug.Log("player confirm -- Something happened!");
+    }
+
+    void EtcFunction()
+    {
+        Debug.Log("etc");
+    }
+
+    /*
+    //wanted to force MonoBehavior's methods through the interface "IEL..." but decided against it, didn't want to expose publically OnWhatever... or risk unknown reactions 
+    public void OnEnable()
+    {
+        
+    }
+
+    public void OnDisable()
+    {
+        
+    }
+    */
 }
