@@ -25,4 +25,13 @@ public class SM_ScreenMgr : MonoBehaviour {
         SceneManager.LoadScene("S1_GO_GET_PLAYERS", LoadSceneMode.Additive);
     }
 
+    //dependency on UI. aka exposure, endpoint, interface. 
+    public int CountGamepadIconsInSceneS1()
+    {
+        Scene scene = SceneManager.GetSceneByName("S1_UI_CANVASES");
+        if (scene == null) { return 0; }
+        return 1;
+
+    }
+
 }

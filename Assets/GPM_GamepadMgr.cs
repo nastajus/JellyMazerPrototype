@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 // logic to detect controllers are connected can go here. 
@@ -15,27 +16,22 @@ public class GPM_GamepadMgr : MonoBehaviour
     private string[] gamepadNamesEverConnected;
     private List<Image> gamepadIcons;
 
+    public string[] coupledGamepadChanges { private get; set; } //prefer to rewrite event manager to support parameters to avoid this coupling
+
     void Start () {
 	    EM_EventMgr.TriggerEvent("player confirm");
         gamepadNamesEverConnected = Input.GetJoystickNames();
+        
     }
 	
 	void Update ()
 	{
         string[] gamepadChanges = DetectGamepadsConnectedChanged();
-        UpdateGamepadIconsInScene(gamepadChanges);
+        //SendMessages(gamepadChanges);
+	    coupledGamepadChanges = gamepadChanges;
 	}
 
-    //dependency on UI. aka exposure, endpoint, interface. 
-    void CountGamepadIconsInScene()
-    {
-        
-    }
 
-    void UpdateGamepadIconsInScene(string[] gamepadChanges)
-    {
-        //access gamepadIcons by-the-way via side-effects
-    }
 
     string[] DetectGamepadsConnectedChanged()
     {

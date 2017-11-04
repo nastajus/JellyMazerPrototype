@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // manually attach this class in-Editor singular function StartButton to the Button's OnClick selection popup, with setting as Editor & Runtime. 
-// rename to StartButtonManager.
+// rename to StartButtonManager / SB_StartButtonMgr.
 // pushes out event : "start game"
 // receives events to toggle on/off with "can start game" + "cannot start game".
 
