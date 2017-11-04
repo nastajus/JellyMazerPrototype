@@ -15,7 +15,7 @@ public class GamepadIcon : MonoBehaviour
     //private Color color;      //doesn't work
 
     private bool connected_ = false;
-    private bool Connected
+    public bool Connected
     {
         get { return connected_; }
         set

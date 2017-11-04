@@ -16,22 +16,26 @@ public class GPM_GamepadMgr : MonoBehaviour
     private string[] gamepadNamesEverConnected;
     private List<Image> gamepadIcons;
 
-    public string[] coupledGamepadChanges { private get; set; } //prefer to rewrite event manager to support parameters to avoid this coupling
+    public string[] coupledGamepadChanges { get; set; } //prefer to rewrite event manager to support parameters to avoid this coupling
 
     void Start () {
 	    EM_EventMgr.TriggerEvent("player confirm");
-        gamepadNamesEverConnected = Input.GetJoystickNames();
-        
+        //gamepadNamesEverConnected = Input.GetJoystickNames();
+        gamepadNamesEverConnected = new string[] { };
+
     }
 	
 	void Update ()
 	{
         string[] gamepadChanges = DetectGamepadsConnectedChanged();
-        //SendMessages(gamepadChanges);
-	    coupledGamepadChanges = gamepadChanges;
+
+        // send message of (gamepadChanges);
+	    if (gamepadChanges != new string[] { })
+	    {
+	        coupledGamepadChanges = gamepadChanges;
+            EM_EventMgr.TriggerEvent("update gamepad icons");
+	    }
 	}
-
-
 
     string[] DetectGamepadsConnectedChanged()
     {
