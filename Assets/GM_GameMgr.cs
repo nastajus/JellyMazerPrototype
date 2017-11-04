@@ -35,6 +35,7 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
     private EM_EventMgr EM_EventMgr_;
     private SM_ScreenMgr SM_ScreenMgr_;
     private GPM_GamepadMgr GPM_GamepadMgr_;
+    private GSM_GameStateMgr GSM_GameStateMgr_;
     private MM_MazeMgr MM_MazeMgr_;
 
     private UnityAction listenerPlayerConfirmed;
@@ -79,6 +80,7 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
         //add a bunch of startup logic (other classes, other components).
         SM_ScreenMgr_ = gameObject.AddComponent<SM_ScreenMgr>();
         GPM_GamepadMgr_ = gameObject.AddComponent<GPM_GamepadMgr>();
+        GSM_GameStateMgr_ = gameObject.AddComponent<GSM_GameStateMgr>();
         MM_MazeMgr_ = gameObject.AddComponent<MM_MazeMgr>();
 
         EM_EventMgr.TriggerEvent("get players");
