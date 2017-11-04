@@ -23,7 +23,7 @@ public class GPM_GamepadMgr : MonoBehaviour
 	void Update ()
 	{
         string[] gamepadChanges = DetectGamepadsConnectedChanged();
-        UpdateGamepadIconsInScene(gamepadIcons, gamepadChanges);
+        UpdateGamepadIconsInScene(gamepadChanges);
 	}
 
     //dependency on UI. aka exposure, endpoint, interface. 
@@ -32,9 +32,9 @@ public class GPM_GamepadMgr : MonoBehaviour
         
     }
 
-    void UpdateGamepadIconsInScene(List<Image> gamepadIcons, string[] gamepadChanges)
+    void UpdateGamepadIconsInScene(string[] gamepadChanges)
     {
-        
+        //access gamepadIcons by-the-way via side-effects
     }
 
     string[] DetectGamepadsConnectedChanged()
