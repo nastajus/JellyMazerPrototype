@@ -34,19 +34,21 @@ public class GPM_GamepadMgr : MonoBehaviour
         
     }
 
-    void DetectGamepadsConnectedChanged()
+    int[] DetectGamepadsConnectedChanged()
     {
         string[] gamepadNames = Input.GetJoystickNames();
         if (gamepadNames.SequenceEqual(gamepadNamesEverConnected))
         {
-            return;
+            return new int[] { };
         }
 
+        List<int> gamepadIndexChanges = new List<int>(); 
         for (int i = 0; i < gamepadNames.Length; i++)
         {
             if (!string.IsNullOrEmpty(gamepadNames[i]))
             {
                 Debug.Log("Gamepad " + i + " is connected using: " + gamepadNames[i]);
+                gamepadIndexChanges.Add(i);
             }
             else
             {
@@ -54,5 +56,6 @@ public class GPM_GamepadMgr : MonoBehaviour
             }
         }
         gamepadNamesEverConnected = gamepadNames;
+        return gamepadIndexChanges.ToArray();
     }
 }
