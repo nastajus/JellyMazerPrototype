@@ -3,6 +3,13 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
+//purpose: administer all events that drive this application: 
+/*
+ *  - "get players"
+ *  - "can start game" + "cannot start game"
+ *  - "start game" 
+ */
+
 public class EM_EventMgr : MonoBehaviour
 {
 

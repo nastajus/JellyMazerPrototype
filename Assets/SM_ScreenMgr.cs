@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+// might use to find & store references to multiple canvases, and to initiate switching between fore-ground canvas...  seems good idea.
+// possibly rename to CM_CanvasManager...
 
 public class SM_ScreenMgr : MonoBehaviour {
 
