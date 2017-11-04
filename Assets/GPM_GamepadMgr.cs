@@ -15,7 +15,7 @@ public class GPM_GamepadMgr : MonoBehaviour
 
     void Start () {
 	    EM_EventMgr.TriggerEvent("player confirm");
-        InitGamepads();
+        gamepadNamesEverConnected = Input.GetJoystickNames();
     }
 	
 	void Update ()
@@ -32,11 +32,6 @@ public class GPM_GamepadMgr : MonoBehaviour
     void UpdateGamepadIconsInScene()
     {
         
-    }
-
-    void InitGamepads()
-    {
-        gamepadNamesEverConnected = Input.GetJoystickNames();
     }
 
     void DetectGamepadsConnectedChanged()
