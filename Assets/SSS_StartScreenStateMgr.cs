@@ -2,10 +2,23 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+// very simple FSM (finite state machine) with only two states, that can only transition between each other.
+
 public class SSS_StartScreenStateMgr : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
+    public enum StartButton { Disabled, Enabled }
+
+    private StartButton StartButtonState = StartButton.Disabled;
+
+    resultState Transition(currentState, transitionSymbols)
+    {
+        
+    }
+
+    //
+
+    // Use this for initialization
+    void Start () {
 		
 	}
 	
