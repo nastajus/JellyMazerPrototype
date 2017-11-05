@@ -19,7 +19,7 @@ public class PlayerIcon : MonoBehaviour
     readonly Color32 colorSelected_ = new Color32(0, 255, 0, 255);
 
     private bool selected_ = false;
-    private bool Selected
+    public bool Selected
     {
         get { return selected_; }
         set

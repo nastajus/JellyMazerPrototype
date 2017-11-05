@@ -33,7 +33,7 @@ public class GPM_GamepadMgr : MonoBehaviour
 	    if (gamepadChanges != new string[] { })
 	    {
 	        coupledGamepadChanges = gamepadChanges;
-            EM_EventMgr.TriggerEvent("update gamepad icons");
+            EM_EventMgr.TriggerEvent("update selection icons");
 	    }
 	}
 
