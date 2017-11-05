@@ -35,11 +35,13 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
     private EM_EventMgr EM_EventMgr_;
     private SM_ScreenMgr SM_ScreenMgr_;
     private GPM_GamepadMgr GPM_GamepadMgr_;
+    private PM_PlayerMgr PM_PlayerMgr_;
     private GSM_GameStateMgr GSM_GameStateMgr_;
     private MM_MazeMgr MM_MazeMgr_;
 
-    private UnityAction listenerPlayerConfirmed;
-    private UnityAction listenerEtc;
+    //private UnityAction listenerPlayerConfirmed;
+    //private UnityAction listenerEtc;
+    private UnityAction listenerMakeMaze;
 
     void Awake ()
     {
@@ -70,8 +72,9 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
     void InitListeners()
     {
         EM_EventMgr_ = gameObject.AddComponent<EM_EventMgr>();
-        listenerPlayerConfirmed = new UnityAction(PlayerConfirmFunction);
-        listenerEtc = new UnityAction(EtcFunction);
+        //listenerPlayerConfirmed = new UnityAction(PlayerConfirmFunction);
+        //listenerEtc = new UnityAction(EtcFunction);
+        listenerMakeMaze = new UnityAction(MakeMaze);
 
     }
 
@@ -80,6 +83,7 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
         //add a bunch of startup logic (other classes, other components).
         SM_ScreenMgr_ = gameObject.AddComponent<SM_ScreenMgr>();
         GPM_GamepadMgr_ = gameObject.AddComponent<GPM_GamepadMgr>();
+        PM_PlayerMgr_ = gameObject.AddComponent<PM_PlayerMgr>();
         GSM_GameStateMgr_ = gameObject.AddComponent<GSM_GameStateMgr>();
         MM_MazeMgr_ = gameObject.AddComponent<MM_MazeMgr>();
 
@@ -89,17 +93,20 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
 
     void OnEnable()
     {
-        EM_EventMgr.StartListening("player confirm", PlayerConfirmFunction);
-        EM_EventMgr.StartListening("etc", EtcFunction);
+        //EM_EventMgr.StartListening("player confirm", PlayerConfirmFunction);
+        //EM_EventMgr.StartListening("etc", EtcFunction);
+        EM_EventMgr.StartListening("make maze", MakeMaze);
     }
 
     //OnDisable is necessary to manage properly memory and thus avoid memory leaks
     void OnDisable()
     {
-        EM_EventMgr.StopListening("player confirm", PlayerConfirmFunction);
-        EM_EventMgr.StopListening("etc", EtcFunction);
+        //EM_EventMgr.StopListening("player confirm", PlayerConfirmFunction);
+        //EM_EventMgr.StopListening("etc", EtcFunction);
+        EM_EventMgr.StopListening("make maze", MakeMaze);
     }
 
+    /*
     void PlayerConfirmFunction()
     {
         Debug.Log("player confirm -- Something happened!");
@@ -108,5 +115,11 @@ public class GM_GameMgr : MonoBehaviour //, IEL_IEventListeners
     void EtcFunction()
     {
         Debug.Log("etc");
+    }
+    */
+
+    void MakeMaze()
+    {
+        Debug.Log("making ze maze, sir.");
     }
 }

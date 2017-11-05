@@ -12,15 +12,39 @@ using UnityEngine;
 
 public class PM_PlayerMgr : MonoBehaviour
 {
-    private List<Player> activePlayers;
+    //private List<Player> activePlayers;
 
-	// Use this for initialization
-	void Start () {
-		
-	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public int coupledPlayersActive { get; private set; }   //prefer other solution using event messaging with # parameter passed instead.
+    public const int MINIMUM_PLAYERS = 2;
+
+
+    void OnEnable () {
+        EM_EventMgr.StartListening("update players connected", UpdatePlayerActiveCount);
+
+    }
+
+    void OnDisable () {
+        EM_EventMgr.StopListening("update players connected", UpdatePlayerActiveCount);
+
+    }
+
+    void UpdatePlayerActiveCount()
+    {
+        //access gamepadIcons by-the-way via coupled dependency for time-being
+        GPM_GamepadMgr gamepadMgr = gameObject.GetComponent<GPM_GamepadMgr>();
+        string[] coupledGamepadChanges = gamepadMgr.coupledGamepadChanges;      //prefer to remove coupling dependency
+
+        int players = 0;
+        for (int i = 0; i < coupledGamepadChanges.Length; i++)
+        {
+            bool active = coupledGamepadChanges[i].Substring(0, 1) == "+";
+            if (active)
+            {
+                players++;
+            }
+        }
+        coupledPlayersActive = players;
+    }
+
 }

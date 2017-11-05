@@ -13,16 +13,19 @@ public class SM_ScreenMgr : MonoBehaviour
     private List<GameObject> gamepadIconGos;
     private List<GameObject> playerIconsGos;
 
+
     void OnEnable()
     {
         EM_EventMgr.StartListening("get players", ActivateScenesGettingPlayers);
-        EM_EventMgr.StartListening("update selection icons", UpdateGamepadIconsInSceneS1);
-        EM_EventMgr.StartListening("update selection icons", UpdatePlayerIconsInSceneS1);
+        EM_EventMgr.StartListening("update players connected", UpdateGamepadIconsInSceneS1);
+        EM_EventMgr.StartListening("update players connected", UpdatePlayerIconsInSceneS1);
     }
 
     void OnDisable()
     {
         EM_EventMgr.StopListening("get players", ActivateScenesGettingPlayers);
+        EM_EventMgr.StopListening("update players connected", UpdateGamepadIconsInSceneS1);
+        EM_EventMgr.StopListening("update players connected", UpdatePlayerIconsInSceneS1);
     }
 
     void ActivateScenesGettingPlayers()
@@ -80,7 +83,7 @@ public class SM_ScreenMgr : MonoBehaviour
 
         for (int i = 0; i < gamepadIconGos.Count && i < coupledGamepadChanges.Length; i++)
         {
-            gamepadIconGos[i].GetComponent<GamepadIcon>().Connected = (coupledGamepadChanges[i].Substring(0, 1) == "+") ? true : false;
+            gamepadIconGos[i].GetComponent<GamepadIcon>().Connected = (coupledGamepadChanges[i].Substring(0, 1) == "+");
         }
     }
 
@@ -113,7 +116,7 @@ public class SM_ScreenMgr : MonoBehaviour
 
         for (int i = 0; i < playerIconsGos.Count && i < coupledGamepadChanges.Length; i++)
         {
-            playerIconsGos[i].GetComponent<PlayerIcon>().Selected = (coupledGamepadChanges[i].Substring(0, 1) == "+") ? true : false;
+            playerIconsGos[i].GetComponent<PlayerIcon>().Selected = (coupledGamepadChanges[i].Substring(0, 1) == "+");
         }
     }
 }

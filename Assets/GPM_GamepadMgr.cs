@@ -21,7 +21,7 @@ public class GPM_GamepadMgr : MonoBehaviour
     void Start () {
 	    EM_EventMgr.TriggerEvent("player confirm");
         //gamepadNamesEverConnected = Input.GetJoystickNames();
-        gamepadNamesEverConnected = new string[] { };
+        gamepadNamesEverConnected = new string[0];
 
     }
 	
@@ -30,10 +30,10 @@ public class GPM_GamepadMgr : MonoBehaviour
         string[] gamepadChanges = DetectGamepadsConnectedChanged();
 
         // send message of (gamepadChanges);
-	    if (gamepadChanges != new string[] { })
+	    if (gamepadChanges.Length != 0)
 	    {
 	        coupledGamepadChanges = gamepadChanges;
-            EM_EventMgr.TriggerEvent("update selection icons");
+            EM_EventMgr.TriggerEvent("update players connected");
 	    }
 	}
 
@@ -42,7 +42,7 @@ public class GPM_GamepadMgr : MonoBehaviour
         string[] gamepadNames = Input.GetJoystickNames();
         if (gamepadNames.SequenceEqual(gamepadNamesEverConnected))
         {
-            return new string[] { };
+            return new string[0];
         }
 
         List<string> gamepadIndexChanges = new List<string>(); 
